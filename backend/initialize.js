@@ -8,6 +8,7 @@ const Journey = require('./models/journey')
 const DB_URI = process.env.DB_URI
 const PATH_TO_STATIONS = './data/stations.csv'
 const PATHS_TO_JOURNEYS = ['./data/2021-05.csv', './data/2021-06.csv', './data/2021-07.csv']
+const SPLIT_BUFFER_AT = 50000
 
 mongoose.connect(DB_URI)
   .then(() => {
@@ -45,7 +46,7 @@ const exportJourneys = async (dataset) => {
     }
     journeyProgress.update(count)
 
-    if (separatorCount === 100000) {
+    if (separatorCount === SPLIT_BUFFER_AT) {
       try {
         await Journey.insertMany(bufferArray)
       } catch (error) {

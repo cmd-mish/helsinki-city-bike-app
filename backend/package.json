@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node ./src/index.js",
     "dev": "nodemon ./src/index.js",
-    "init": "node ./src/init.js"
+    "init": "node init.js"
   },
   "author": "cmd-mish.dev",
   "license": "ISC",
