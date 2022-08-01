@@ -1,0 +1,22 @@
+{
+  "name": "helsinki-city-bike-app-backend",
+  "version": "0.0.1",
+  "description": "Node js app for Helsinki City App Bike (Solita Dev Academy Exercise Autumn 2022)",
+  "main": "./src/index.js",
+  "scripts": {
+    "start": "node ./src/index.js",
+    "dev": "nodemon ./src/index.js",
+    "init": "node ./src/init.js"
+  },
+  "author": "cmd-mish.dev",
+  "license": "ISC",
+  "dependencies": {
+    "csvtojson": "^2.0.10",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "mongoose": "^6.5.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
