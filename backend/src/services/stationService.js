@@ -1,9 +1,9 @@
-const stationRouter = require('express').Router()
+const stationService = require('express').Router()
 const Station = require('../models/station')
 
-stationRouter.get('/', async (req, res) => {
+stationService.get('/', async (req, res) => {
   const services = await Station.find({})
   res.json(services)
 })
 
-module.exports = stationRouter
+module.exports = stationService
