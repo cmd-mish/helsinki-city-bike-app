@@ -5,7 +5,6 @@ const csv = require('csvtojson')
 const app = express()
 const PORT = 3000
 
-
 const csvFile = './data/stations.csv'
 
 app.get('/api/stations', (req, res) => {
