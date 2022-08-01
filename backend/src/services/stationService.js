@@ -1,8 +1,9 @@
 const stationRouter = require('express').Router()
+const Station = require('../models/station')
 
-stationRouter.post('/', async (req, res) => {
-  const body = req.body
-  console.log(body)
+stationRouter.get('/', async (req, res) => {
+  const services = await Station.find({})
+  res.json(services)
 })
 
 module.exports = stationRouter

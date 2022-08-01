@@ -1,19 +1,15 @@
 require('dotenv').config()
+const mongoose = require('mongoose')
 const express = require('express')
-const csv = require('csvtojson')
+const stationRouter = require('./services/stationService')
 
 const app = express()
+const DB_URI = process.env.DB_URI
 const PORT = 3000
 
-const csvFile = './data/stations.csv'
+mongoose.connect(DB_URI)
 
-app.get('/api/stations', (req, res) => {
-  csv()
-    .fromFile(csvFile)
-    .then((obj) => {
-      return res.json(obj)
-    })
-})
+app.use('/api/stations/', stationRouter)
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`)
