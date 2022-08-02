@@ -6,7 +6,7 @@ const journeyService = require('./services/journeyService')
 
 const app = express()
 const DB_URI = process.env.DB_URI
-const PORT = 3000
+const PORT = 3001
 
 mongoose.connect(DB_URI)
   .then(() => {
