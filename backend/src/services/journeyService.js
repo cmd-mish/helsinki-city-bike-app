@@ -9,16 +9,16 @@ journeyService.get('/', async (req, res) => {
 })
 
 journeyService.get('/pages', async (req, res) => {
-  const totalDocuments = await Journey.countDocuments({})
+  const totalDocuments = await Journey.estimatedDocumentCount({})
   const responseValue = Math.ceil(totalDocuments / defLimitEntriesPerPage)
   return res.json({ totalPages: responseValue })
 })
 
 journeyService.get('/pages/:number', async (req, res) => {
   const page = Number(req.params.number)
-  if (isNaN(page)) return res.status(400).json({ error: 'invalid parameter' })
+  if (isNaN(page) || page <= 0) return res.status(400).json({ error: 'invalid parameter' })
 
-  const skipping = page * defLimitEntriesPerPage
+  const skipping = (page - 1) * defLimitEntriesPerPage
 
   const journeys = await Journey.aggregate([{ $skip: skipping }, { $limit: defLimitEntriesPerPage }])
   if (journeys.length > 0) {
@@ -28,7 +28,7 @@ journeyService.get('/pages/:number', async (req, res) => {
 })
 
 journeyService.get('/total', async (req, res) => {
-  const amount = await Journey.countDocuments({})
+  const amount = await Journey.estimatedDocumentCount({})
   return res.json({ totalEntries: amount })
 })
 
