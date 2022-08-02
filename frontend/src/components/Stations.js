@@ -27,9 +27,7 @@ const Stations = () => {
             <th>Name</th>
             <th>ID</th>
             <th>Address</th>
-            <th>Operator</th>
             <th>Capacity</th>
-            <th>Coordinates</th>
           </tr>
           {stations
             .filter(station => station.Name.toLowerCase().includes(search.toLowerCase()))
@@ -40,9 +38,7 @@ const Stations = () => {
                   <td><a href={`./stations/${station._id}`}>{station.Name}</a></td>
                   <td>{station.ID}</td>
                   <td>{station.Osoite}{station.Kaupunki ? `, ${station.Kaupunki}` : ''} </td>
-                  <td>{station.Operaattor}</td>
                   <td>{station.Kapasiteet}</td>
-                  <td>x: {station.x}, y: {station.y}</td>
                 </tr>
               )
             })
