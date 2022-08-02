@@ -10,10 +10,25 @@ stationService.get('/', async (req, res) => {
 stationService.get('/:id', async (req, res) => {
   try {
     const station = await Station.findById(req.params.id)
+    let startJourneyCount, endJourneyCount
+    let statsErrorMessage
+
     if (station) {
-      const startJourneyCount = await Journey.countDocuments({ departure_station_id: station.ID })
-      const endJourneyCount = await Journey.countDocuments({ return_station_id: station.ID })
-      return res.json({ ...station._doc, startJourneyCount, endJourneyCount })
+      try {
+        startJourneyCount = await Journey.countDocuments({ departure_station_id: station.ID })
+      } catch (e) {
+        startJourneyCount = null
+        statsErrorMessage = e.message
+      }
+
+      try {
+        endJourneyCount = await Journey.countDocuments({ return_station_id: station.ID })
+      } catch (e) {
+        endJourneyCount = null
+        statsErrorMessage += e.message
+      }
+
+      return res.json({ ...station._doc, startJourneyCount, endJourneyCount, statsErrorMessage })
     }
     return res.status(404).json({ error: 'station not found' })
   } catch (e) {

@@ -21,6 +21,8 @@ const Station = () => {
       <ul>
         <li>name: {station.Name}</li>
         <li>address: {station.Osoite}</li>
+        <li>total number of journeys starting from the station: {station.startJourneyCount}</li>
+        <li>total number of journeys ending at the station: {station.endJourneyCount}</li>
       </ul>
     </div>
   )
