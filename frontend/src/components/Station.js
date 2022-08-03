@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import stationService from '../services/stations'
+import Loader from './Loader'
 
 const Station = () => {
   const [station, setStation] = useState(null)
@@ -13,7 +14,7 @@ const Station = () => {
       .then(response => setStation(response))
   }, [id])
 
-  if (station === null) return <div>loading...</div>
+  if (station === null) return <div><Loader /></div>
 
   return (
     <div>
