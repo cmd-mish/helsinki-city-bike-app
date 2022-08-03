@@ -9,21 +9,28 @@ journeyService.get('/', async (req, res) => {
 })
 
 journeyService.get('/pages', async (req, res) => {
-  const totalDocuments = await Journey.estimatedDocumentCount({})
+  const totalDocuments = await Journey.estimatedDocumentCount()
   const responseValue = Math.ceil(totalDocuments / defLimitEntriesPerPage)
   return res.json({ totalPages: responseValue })
 })
 
 journeyService.get('/pages/:number', async (req, res) => {
+  const sortBy = req.query.sortBy
+
   const page = Number(req.params.number)
   if (isNaN(page) || page <= 0) return res.status(400).json({ error: 'invalid parameter' })
 
   const skipping = (page - 1) * defLimitEntriesPerPage
 
-  const journeys = await Journey.aggregate([{ $skip: skipping }, { $limit: defLimitEntriesPerPage }])
-  if (journeys.length > 0) {
-    return res.json(journeys)
+  try {
+    const journeys = await Journey.aggregate([{ $sort: { [sortBy]: 1 } }, { $skip: skipping }, { $limit: defLimitEntriesPerPage }])
+    if (journeys.length > 0) {
+      return res.json(journeys)
+    }
+  } catch (e) {
+    res.status(400).end()
   }
+
   return res.status(404).json({ error: 'page doesn\'t exist' })
 })
 

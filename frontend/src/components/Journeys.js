@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useParams, useNavigate, Link } from 'react-router-dom'
+import { useParams, useLocation, useNavigate, Link } from 'react-router-dom'
 import journeyService from '../services/journey'
 import Paginator from './Paginator'
 import Table from 'react-bootstrap/Table'
@@ -9,15 +9,17 @@ const Journeys = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [journeys, setJourneys] = useState([])
   const [totalPages, setTotalPages] = useState(0)
+
+  const search = useLocation().search
   const pageParam = useParams().page
   const navigate = useNavigate()
 
   useEffect(() => {
     setCurrentPage(Number(pageParam))
     journeyService
-      .getPage(pageParam)
+      .getPage(pageParam, search)
       .then(response => setJourneys(response))
-  }, [pageParam])
+  }, [pageParam, search])
 
   useEffect(() => {
     journeyService
@@ -29,8 +31,13 @@ const Journeys = () => {
     const pageToSet = currentPage + diff
     if (!isNaN(pageToSet) && pageToSet > 0 && pageToSet < totalPages) {
       setJourneys([])
-      navigate(`/journeys/${pageToSet}`)
+      navigate(`/journeys/${pageToSet}${search}`)
     }
+  }
+
+  const sortContent = (by) => {
+    setJourneys([])
+    navigate(`?sortBy=${by}`)
   }
 
   const parseDate = (date) => {
@@ -52,12 +59,12 @@ const Journeys = () => {
         <Table striped bordered hover>
           <tbody>
             <tr>
-              <th>Departure time</th>
-              <th>Return time</th>
-              <th>Departure station</th>
-              <th>Return station</th>
-              <th>Distance (m)</th>
-              <th>Duration (sec)</th>
+              <th><span onClick={() => sortContent('departure')}>Departure time</span></th>
+              <th><span onClick={() => sortContent('return')}>Return time</span></th>
+              <th><span onClick={() => sortContent('departure_station_id')}>Departure station</span></th>
+              <th><span onClick={() => sortContent('return_station_id')}>Return station</span></th>
+              <th><span onClick={() => sortContent('covered_distance')}>Distance (m)</span></th>
+              <th><span onClick={() => sortContent('duration')}>Duration (sec)</span></th>
             </tr>
             {journeys
               .map(journey => {
@@ -74,10 +81,10 @@ const Journeys = () => {
               })}
           </tbody>
         </Table>
-      </div>
+      </div >
 
       <Paginator changePage={changePage} currentPage={currentPage} totalPages={totalPages} />
-    </div>
+    </div >
   )
 }
 

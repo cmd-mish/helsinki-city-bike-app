@@ -6,8 +6,8 @@ const totalPages = async () => {
   return response.data
 }
 
-const getPage = async (page) => {
-  const response = await axios.get(`${baseURL}/pages/${page}`)
+const getPage = async (page, params) => {
+  const response = await axios.get(`${baseURL}/pages/${page}${params}`)
   return response.data
 }
 
