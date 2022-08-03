@@ -15,7 +15,12 @@ journeyService.get('/pages', async (req, res) => {
 })
 
 journeyService.get('/pages/:number', async (req, res) => {
-  const sortBy = req.query.sortBy
+  const acceptedSortBy =
+    ['departure', 'return', 'departure_station_name', 'return_station_name', 'covered_distance', 'duration']
+
+  const sortBy =
+    acceptedSortBy.includes(req.query.sortBy) ? req.query.sortBy : 'departure'
+  const order = req.query.asc === 'true' ? 1 : -1
 
   const page = Number(req.params.number)
   if (isNaN(page) || page <= 0) return res.status(400).json({ error: 'invalid parameter' })
@@ -23,12 +28,13 @@ journeyService.get('/pages/:number', async (req, res) => {
   const skipping = (page - 1) * defLimitEntriesPerPage
 
   try {
-    const journeys = await Journey.aggregate([{ $sort: { [sortBy]: 1 } }, { $skip: skipping }, { $limit: defLimitEntriesPerPage }])
+    const journeys = await Journey
+      .aggregate([{ $sort: { [sortBy]: order } }, { $skip: skipping }, { $limit: defLimitEntriesPerPage }])
     if (journeys.length > 0) {
       return res.json(journeys)
     }
   } catch (e) {
-    res.status(400).end()
+    res.status(400).json({ error: 'couldn\'t extract entries' })
   }
 
   return res.status(404).json({ error: 'page doesn\'t exist' })

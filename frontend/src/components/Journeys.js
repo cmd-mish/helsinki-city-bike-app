@@ -9,6 +9,7 @@ const Journeys = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [journeys, setJourneys] = useState([])
   const [totalPages, setTotalPages] = useState(0)
+  const [asc, setAsc] = useState(false)
 
   const search = useLocation().search
   const pageParam = useParams().page
@@ -27,9 +28,17 @@ const Journeys = () => {
       .then(response => setTotalPages(Number(response.totalPages)))
   }, [])
 
-  const changePage = (diff) => {
-    const pageToSet = currentPage + diff
-    if (!isNaN(pageToSet) && pageToSet > 0 && pageToSet < totalPages) {
+  const changePage = (value) => {
+    let pageToSet
+    if (value === 'first') {
+      pageToSet = 1
+    } else if (value === 'last') {
+      pageToSet = totalPages
+    } else {
+      pageToSet = currentPage + value
+    }
+
+    if (!isNaN(pageToSet) && pageToSet > 0 && pageToSet <= totalPages && pageToSet !== currentPage) {
       setJourneys([])
       navigate(`/journeys/${pageToSet}${search}`)
     }
@@ -37,7 +46,8 @@ const Journeys = () => {
 
   const sortContent = (by) => {
     setJourneys([])
-    navigate(`?sortBy=${by}`)
+    navigate(`?sortBy=${by}&asc=${asc}`)
+    setAsc(!asc)
   }
 
   const parseDate = (date) => {
@@ -59,12 +69,12 @@ const Journeys = () => {
         <Table striped bordered hover>
           <tbody>
             <tr>
-              <th><span onClick={() => sortContent('departure')}>Departure time</span></th>
-              <th><span onClick={() => sortContent('return')}>Return time</span></th>
-              <th><span onClick={() => sortContent('departure_station_id')}>Departure station</span></th>
-              <th><span onClick={() => sortContent('return_station_id')}>Return station</span></th>
-              <th><span onClick={() => sortContent('covered_distance')}>Distance (m)</span></th>
-              <th><span onClick={() => sortContent('duration')}>Duration (sec)</span></th>
+              <th><button className='btn btn-link' onClick={() => sortContent('departure')}><b>Departure time</b></button></th>
+              <th><button className='btn btn-link' onClick={() => sortContent('return')}><b>Return time</b></button></th>
+              <th><button className='btn btn-link' onClick={() => sortContent('departure_station_name')}><b>Departure station</b></button></th>
+              <th><button className='btn btn-link' onClick={() => sortContent('return_station_name')}><b>Return station</b></button></th>
+              <th><button className='btn btn-link' onClick={() => sortContent('covered_distance')}><b>Distance (m)</b></button></th>
+              <th><button className='btn btn-link' onClick={() => sortContent('duration')}><b>Duration (sec)</b></button></th>
             </tr>
             {journeys
               .map(journey => {
