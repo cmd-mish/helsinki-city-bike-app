@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 import journeyService from '../services/journey'
 import Paginator from './Paginator'
 import Table from 'react-bootstrap/Table'
@@ -65,8 +65,8 @@ const Journeys = () => {
                   <tr key={journey._id}>
                     <td>{parseDate(journey.departure)}</td>
                     <td>{parseDate(journey.return)}</td>
-                    <td>{journey.departure_station_name} (id: {journey.departure_station_id})</td>
-                    <td>{journey.return_station_name} (id: {journey.return_station_id})</td>
+                    <td><Link to={`/stations/${journey.departure_station_id}`}>{journey.departure_station_name}</Link></td>
+                    <td><Link to={`/stations/${journey.return_station_id}`}>{journey.return_station_name}</Link></td>
                     <td>{journey.covered_distance}</td>
                     <td>{journey.duration}</td>
                   </tr>

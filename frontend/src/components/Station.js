@@ -7,6 +7,7 @@ import { Card, Table, Button, Container, Row, Col } from 'react-bootstrap'
 
 const Station = () => {
   const [station, setStation] = useState(null)
+  const [error, setError] = useState(null)
 
   const id = useParams().id
   const navigate = useNavigate()
@@ -15,8 +16,10 @@ const Station = () => {
     stationService
       .getOne(id)
       .then(response => setStation(response))
+      .catch(error => setError(error))
   }, [id])
 
+  if (error) return <div>{error.message}</div>
   if (station === null) return <div><Loader /></div>
 
   return (
@@ -81,7 +84,7 @@ const Station = () => {
         </Card.Body>
       </Card>
       <div className="text-center mt-2 mb-4">
-        <Button variant="outline-dark" onClick={() => navigate('/stations')}>Return to the list</Button>
+        <Button variant="outline-dark" onClick={() => navigate(-1)}>Back</Button>
       </div>
     </div >
   )

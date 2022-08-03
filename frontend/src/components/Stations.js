@@ -40,7 +40,7 @@ const Stations = () => {
                 return (
                   <tr key={station._id}>
                     <td>{station.FID}</td>
-                    <td><a href={`./stations/${station._id}`}>{station.Name}</a></td>
+                    <td><a href={`./stations/${station.ID}`}>{station.Name}</a></td>
                     <td>{station.ID}</td>
                     <td>{station.Osoite}{station.Kaupunki ? `, ${station.Kaupunki}` : ''} </td>
                     <td>{station.Kapasiteet}</td>

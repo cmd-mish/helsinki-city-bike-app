@@ -9,7 +9,7 @@ stationService.get('/', async (req, res) => {
 
 stationService.get('/:id', async (req, res) => {
   try {
-    const station = await Station.findById(req.params.id)
+    const station = await Station.findOne({ ID: req.params.id })
     let startJourneyCount, endJourneyCount
     let statsErrorMessage
 
