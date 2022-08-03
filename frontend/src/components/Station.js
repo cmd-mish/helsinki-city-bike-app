@@ -37,6 +37,14 @@ const Station = () => {
                   </thead>
                   <tbody>
                     <tr>
+                      <td>FID</td>
+                      <td>{station.FID}</td>
+                    </tr>
+                    <tr>
+                      <td>ID</td>
+                      <td>{station.ID}</td>
+                    </tr>
+                    <tr>
                       <td>Address</td>
                       <td>
                         {station.Osoite}{station.Kaupunki ? `, ${station.Kaupunki}` : ''}
@@ -48,6 +56,12 @@ const Station = () => {
                       <td>Capacity</td>
                       <td>{station.Kapasiteet}</td>
                     </tr>
+                    {station.Operaattor ?
+                      <tr>
+                        <td>Operator</td>
+                        <td>{station.Operaattor}</td>
+                      </tr>
+                      : null}
                     <tr>
                       <td>Journeys from this station</td>
                       <td>{station.startJourneyCount}</td>
@@ -58,7 +72,6 @@ const Station = () => {
                     </tr>
                   </tbody>
                 </Table>
-
               </Col>
               <Col>
                 <Map x={station.x} y={station.y} />
