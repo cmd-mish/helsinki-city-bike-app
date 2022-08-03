@@ -1,5 +1,5 @@
 .leaflet-container {
-  max-width: 500px;
+  max-width: 100%;
   min-width: 300px;
   height: 300px;
 }

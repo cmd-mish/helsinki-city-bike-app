@@ -30,7 +30,7 @@ const Station = () => {
         </Card.Header>
         <Card.Body>
           <Container>
-            <Row>
+            <Row className="justify-content-md-center">
               <Col>
                 <Table bordered size="sm" style={{ maxWidth: '40rem' }}>
                   <thead>
@@ -72,6 +72,14 @@ const Station = () => {
                     <tr>
                       <td>Journeys to this station</td>
                       <td>{station.endJourneyCount}</td>
+                    </tr>
+                    <tr>
+                      <td>Average distance of a journey from this staion</td>
+                      <td>{Math.round(station.avgStart[0].avg)} m</td>
+                    </tr>
+                    <tr>
+                      <td>Average distance of a journey to this staion</td>
+                      <td>{Math.round(station.avgEnd[0].avg)} m</td>
                     </tr>
                   </tbody>
                 </Table>
