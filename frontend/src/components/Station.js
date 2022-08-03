@@ -73,14 +73,18 @@ const Station = () => {
                       <td>Journeys to this station</td>
                       <td>{station.endJourneyCount}</td>
                     </tr>
-                    <tr>
-                      <td>Average distance of a journey from this staion</td>
-                      <td>{Math.round(station.avgStart[0].avg)} m</td>
-                    </tr>
-                    <tr>
-                      <td>Average distance of a journey to this staion</td>
-                      <td>{Math.round(station.avgEnd[0].avg)} m</td>
-                    </tr>
+                    {station.avgStart[0] ?
+                      <tr>
+                        <td>Average distance of a journey from this staion</td>
+                        <td>{Math.round(station.avgStart[0].avg)} m</td>
+                      </tr>
+                      : null}
+                    {station.avgEnd[0] ?
+                      <tr>
+                        <td>Average distance of a journey to this staion</td>
+                        <td>{Math.round(station.avgEnd[0].avg)} m</td>
+                      </tr>
+                      : null}
                   </tbody>
                 </Table>
               </Col>
