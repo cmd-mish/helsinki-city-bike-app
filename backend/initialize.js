@@ -1,14 +1,10 @@
-require('dotenv').config()
+const { DB_URI, PATH_TO_STATIONS, PATHS_TO_JOURNEYS, SPLIT_BUFFER_AT } = require('./config')
 const mongoose = require('mongoose')
 const csv = require('csvtojson')
 const cliProgress = require('cli-progress');
 const Station = require('./src/models/station')
 const Journey = require('./src/models/journey')
 
-const DB_URI = process.env.DB_URI
-const PATH_TO_STATIONS = './data/stations.csv'
-const PATHS_TO_JOURNEYS = ['./data/2021-05.csv', './data/2021-06.csv', './data/2021-07.csv']
-const SPLIT_BUFFER_AT = 100
 
 mongoose.connect(DB_URI)
   .then(() => {

@@ -1,12 +1,10 @@
-require('dotenv').config()
+const { DB_URI, PORT } = require('../config')
 const mongoose = require('mongoose')
 const express = require('express')
 const stationService = require('./services/stationService')
 const journeyService = require('./services/journeyService')
 
 const app = express()
-const DB_URI = process.env.DB_URI
-const PORT = 3001
 
 mongoose.connect(DB_URI)
   .then(() => {
