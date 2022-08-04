@@ -2,7 +2,7 @@
 This is a pre-assignment for [Solita Academy](https://www.solita.fi/en/academy/) Autumn 2022. This project combines front- and backend applications for displaying data of journeys made with city bikes in the Helsinki Capital area.
 
 ## Fullstack application preview
-Built demo version of the application is available at [helsinki-city-bike-app.cmd-mish.dev](https://helsinki-city-bike-app.cmd-mish.dev/). The journey dataset is limited to 2021-05.csv and contains around 800 000 entries. The app is running on my Raspberry Pi for the time being. 
+Built **demo version** of the application is available at **[helsinki-city-bike-app.cmd-mish.dev](https://helsinki-city-bike-app.cmd-mish.dev/)**. The journey dataset is limited to 2021-05.csv and contains around 800 000 entries. The app is running on my Raspberry Pi for the time being. 
 
 ### Station list view
 ![Stations list view](./preview/stations.png)

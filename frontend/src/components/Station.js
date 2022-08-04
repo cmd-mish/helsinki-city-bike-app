@@ -23,7 +23,7 @@ const Station = () => {
   if (station === null) return <div><Loader /></div>
 
   return (
-    <div>
+    <div className='pt-4'>
       <Card>
         <Card.Header as="h2">
           {station.Nimi} / {station.Namn}

@@ -5,6 +5,7 @@ import Navigation from './components/Navigation'
 import Stations from './components/Stations'
 import Journeys from './components/Journeys'
 import Station from './components/Station'
+import Footer from './components/Footer'
 
 const App = () => {
   return (
@@ -19,7 +20,7 @@ const App = () => {
           <Route path='/stations/:id' element={<Station />} />
         </Routes>
       </div>
-
+      <Footer />
     </div >
   )
 }
