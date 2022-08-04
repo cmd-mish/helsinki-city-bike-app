@@ -13,5 +13,5 @@ This is a pre-assignment for [Solita Academy](https://www.solita.fi/en/academy/)
 ![Single station view](./preview/single_station.png)
 
 ## Setup project
-* [Setup the backend application](./backend/readme.md)
-* [Setup the frontend application](./frontend/readme.md)
+* [Setup the backend application](./backend/README.md)
+* [Setup the frontend application](./frontend/README.md)
