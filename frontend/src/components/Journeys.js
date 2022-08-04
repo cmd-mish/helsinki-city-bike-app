@@ -66,7 +66,7 @@ const Journeys = () => {
       <h2>Journeys</h2>
       <Paginator changePage={changePage} currentPage={currentPage} totalPages={totalPages} />
       <div className='mt-3'>
-        <Table striped bordered hover>
+        <Table responsive striped bordered hover>
           <tbody>
             <tr>
               <th><button className='btn btn-link' onClick={() => sortContent('departure')}><b>Departure time</b></button></th>

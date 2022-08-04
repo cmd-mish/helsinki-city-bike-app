@@ -23,7 +23,7 @@ const Stations = () => {
         <input type='text' onChange={(event) => setSearch(event.target.value)} />
       </div>
       <div className='mt-3'>
-        <Table striped bordered hover>
+        <Table responsive striped bordered hover>
           <thead>
             <tr>
               <th>FID</th>
