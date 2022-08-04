@@ -43,4 +43,7 @@ This is a pre-assignment for [Solita Academy](https://www.solita.fi/en/academy/)
 - [x] *(Optional)* Location on map
 - [x] *(Optional)* Average distance of journeys starting at the station
 - [x] *(Optional)* Average distance of journeys ending at the station
+- [ ] *(Optional)* Top 5 most popular return stations
+- [ ] *(Optional)* Top 5 most popular departure stations
+- [ ] *(Optional)* Filtering calculations per month
 
