@@ -30,16 +30,53 @@ File `congig.js` contains parameters for initialising and running the applicatio
 .csv files must be formated according to the values provided below. If the datasets are not formated accordingly, the initialisation script will return an error. 
 
 ### Stations
+Stations .csv must contain a header and the data must be in the following order.
+
 | Column name | Data format | Required | Unique |
-| --- | --- |
-| FID | Number | true | true |
+| ----------- | ----------- | -------- | ------ |
+|  FID        |   Number    |   true   |  true  |
+|  ID         |   Number    |   true   |  true  |
+|  Nimi       |   String    |   true   |  false |
+|  Namn       |   String    |   true   |  false |
+|  Name       |   String    |   true   |  false | 
+|  Osoite     |   String    |   true   |  false |
+|  Adress     |   String    |   true   |  false |
+|  Kaupunki   |   String    |   false  |  false |
+|  Stad       |   String    |   false  |  false |
+|  Operaattor |   String    |   false  |  false |
+|  Kapasiteet |   Number    |   true   |  false |
+|  x          |   Number    |   true   |  false |
+|  y          |   Number    |   true   |  false |
 
+### Journeys
+Journey .csv is not required to have a header, however, data formats in the columns should still be in the following order and match the required formats.
 
+| Column name            | Data format     | Required | Unique |
+| ---------------------- | --------------- | -------- | ------ |
+| departure              | Date (ISO 8601) |  true    | false  |
+| return                 | Date (ISO 8601) |  true    | false  |
+| departure_station_id   | Number          |  true    | false  |
+| departure_station_name | String          |  false   | false  |
+| return_station_id      | Number          |  true    | false  |
+| return_station_name    | String          |  false   | false  |
+| covered_distance       | Number          |  true    | false  |
+| duration               | Number          |  true    | false  |
+
+MongoDB will automatically create indexes for all the fields of journey collection to make the filtering faster. Keep in mind that indexing will affect the memory usage of the server.
 
 ## Uploading data to the database
 Once all the configuration files are set, the initialisation script should be run. **Beware that the script will empty the existing collections in the database!** Run the following command to start the initialisation: 
 
-`npm run init`
+### `npm run init`
 
 The execution of the script may take a while for large datasets. Make sure that you have enough disk storage on the database server. 
 
+## Alternative solution to file export
+If the initialisation script fails for some reason, you can also use [mongoimport](https://www.mongodb.com/docs/database-tools/mongoimport/) command to import data to the database. Alternatively, [Mongo Atlas](https://www.mongodb.com/atlas) provides a GUI to import CSV files. 
+
+## Starting the backend server
+Once the data export is complete, start the server with the following command: 
+
+### `npm start`
+
+Test the server by making a GET request to http://localhost:3001/api/stations. A list of all the sations should be returned in a JSON format. Submit another GET request to http://localhost:3001/api/journeys/ which should return a list of random journeys.
