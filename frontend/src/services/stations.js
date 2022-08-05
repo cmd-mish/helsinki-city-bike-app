@@ -11,5 +11,15 @@ const getOne = async (id) => {
   return response.data
 }
 
+const getTop5Return = async (id) => {
+  const response = await axios.get(`${baseURL}/top5/return/${id}`)
+  return response.data
+}
+
+const getTop5Departure = async (id) => {
+  const response = await axios.get(`${baseURL}/top5/departure/${id}`)
+  return response.data
+}
+
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { getAll, getOne }
+export default { getAll, getOne, getTop5Return, getTop5Departure }

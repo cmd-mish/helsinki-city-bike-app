@@ -3,8 +3,8 @@ import Button from 'react-bootstrap/Button'
 const Paginator = ({ changePage, currentPage, totalPages }) => {
   return (
     <div className="container text-center mt-2 mb-4">
-      <div class="row">
-        <div class="col">
+      <div className="row">
+        <div className="col">
           {currentPage === 1 ?
             <span>
               <Button variant="outline-dark" size="sm" disabled>first page</Button> &nbsp;
@@ -17,11 +17,11 @@ const Paginator = ({ changePage, currentPage, totalPages }) => {
             </span>
           }
         </div>
-        <div class="col">
+        <div className="col">
           {currentPage} / {totalPages}
         </div>
 
-        <div class="col">
+        <div className="col">
           {currentPage === totalPages ?
             <span>
               <Button variant="outline-dark" size="sm" disabled>next page</Button>&nbsp;

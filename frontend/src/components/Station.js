@@ -7,6 +7,8 @@ import { Card, Table, Button, Container, Row, Col } from 'react-bootstrap'
 
 const Station = () => {
   const [station, setStation] = useState(null)
+  const [top5Return, setTop5Return] = useState(null)
+  const [top5Departure, setTop5Departure] = useState(null)
   const [error, setError] = useState(null)
 
   const id = useParams().id
@@ -16,6 +18,16 @@ const Station = () => {
     stationService
       .getOne(id)
       .then(response => setStation(response))
+      .catch(error => setError(error))
+
+    stationService
+      .getTop5Return(id)
+      .then(response => setTop5Return(response))
+      .catch(error => setError(error))
+
+    stationService
+      .getTop5Departure(id)
+      .then(response => setTop5Departure(response))
       .catch(error => setError(error))
   }, [id])
 
@@ -32,7 +44,7 @@ const Station = () => {
           <Container>
             <Row className="justify-content-md-center">
               <Col>
-                <Table bordered size="sm" style={{ maxWidth: '40rem' }}>
+                <Table bordered size="sm">
                   <thead>
                     <tr>
                       <th colSpan={2}>Information</th>
@@ -90,6 +102,55 @@ const Station = () => {
               </Col>
               <Col>
                 <Map x={station.x} y={station.y} />
+              </Col>
+            </Row>
+
+            <Row className="justify-content-md-center">
+              <Col>
+                <h6>Top 5 stations with journeys that started at this staion</h6>
+                <Table bordered size="sm">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Number of journeys</th>
+                    </tr>
+                    {top5Departure.map(station => {
+                      return (
+                        <tr key={station._id}>
+                          <td>
+                            <a href={`./${station._id}`}>{station.return_station_name}</a>
+                          </td>
+                          <td>
+                            {station.count}
+                          </td>
+                        </tr>
+                      )
+                    })}
+                  </thead>
+                </Table>
+              </Col>
+              <Col>
+                <h6>Top 5 stations with journeys that ended at this staion</h6>
+                <Table bordered size="sm">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Number of journeys</th>
+                    </tr>
+                    {top5Return.map(station => {
+                      return (
+                        <tr key={station._id}>
+                          <td>
+                            <a href={`./${station._id}`}>{station.departure_station_name}</a>
+                          </td>
+                          <td>
+                            {station.count}
+                          </td>
+                        </tr>
+                      )
+                    })}
+                  </thead>
+                </Table>
               </Col>
             </Row>
           </Container>
