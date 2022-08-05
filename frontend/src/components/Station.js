@@ -23,12 +23,12 @@ const Station = () => {
     stationService
       .getTop5Return(id)
       .then(response => setTop5Return(response))
-      .catch(error => setError(error))
+      .catch(error => console.log(error))
 
     stationService
       .getTop5Departure(id)
       .then(response => setTop5Departure(response))
-      .catch(error => setError(error))
+      .catch(error => console.log(error))
   }, [id])
 
   if (error) return <div>{error.message}</div>
@@ -108,49 +108,53 @@ const Station = () => {
             <Row className="justify-content-md-center">
               <Col>
                 <h6>Top 5 stations with journeys that started at this staion</h6>
-                <Table bordered size="sm">
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Number of journeys</th>
-                    </tr>
-                    {top5Departure.map(station => {
-                      return (
-                        <tr key={station._id}>
-                          <td>
-                            <a href={`./${station._id}`}>{station.return_station_name}</a>
-                          </td>
-                          <td>
-                            {station.count}
-                          </td>
-                        </tr>
-                      )
-                    })}
-                  </thead>
-                </Table>
+                {top5Departure ?
+                  <Table bordered size="sm">
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Number of journeys</th>
+                      </tr>
+                      {top5Departure.map(station => {
+                        return (
+                          <tr key={station._id}>
+                            <td>
+                              <a href={`./${station._id}`}>{station.return_station_name}</a>
+                            </td>
+                            <td>
+                              {station.count}
+                            </td>
+                          </tr>
+                        )
+                      })}
+                    </thead>
+                  </Table>
+                  : 'Couldn\'t load top 5 departure stations'}
               </Col>
               <Col>
                 <h6>Top 5 stations with journeys that ended at this staion</h6>
-                <Table bordered size="sm">
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Number of journeys</th>
-                    </tr>
-                    {top5Return.map(station => {
-                      return (
-                        <tr key={station._id}>
-                          <td>
-                            <a href={`./${station._id}`}>{station.departure_station_name}</a>
-                          </td>
-                          <td>
-                            {station.count}
-                          </td>
-                        </tr>
-                      )
-                    })}
-                  </thead>
-                </Table>
+                {top5Return ?
+                  <Table bordered size="sm">
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Number of journeys</th>
+                      </tr>
+                      {top5Return.map(station => {
+                        return (
+                          <tr key={station._id}>
+                            <td>
+                              <a href={`./${station._id}`}>{station.departure_station_name}</a>
+                            </td>
+                            <td>
+                              {station.count}
+                            </td>
+                          </tr>
+                        )
+                      })}
+                    </thead>
+                  </Table>
+                  : 'Couldn\'t load top 5 return stations'}
               </Col>
             </Row>
           </Container>

@@ -47,8 +47,8 @@ First, run `npm install` in order to install the dependencies. Then run `npm run
 - [x] *(Optional)* Location on map
 - [x] *(Optional)* Average distance of journeys starting at the station
 - [x] *(Optional)* Average distance of journeys ending at the station
-- [ ] *(Optional)* Top 5 most popular return stations for journeys started at the station
-- [ ] *(Optional)* Top 5 most popular departure stations for journeys started at the station
+- [x] *(Optional)* Top 5 most popular return stations for journeys started at the station
+- [x] *(Optional)* Top 5 most popular departure stations for journeys started at the station
 - [ ] *(Optional)* Filtering calculations per month
 
 ### Additional features
