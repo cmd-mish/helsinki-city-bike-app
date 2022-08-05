@@ -105,7 +105,7 @@ const Station = () => {
               </Col>
             </Row>
 
-            <Row className="justify-content-md-center">
+            <Row className="justify-content-md-center pt-3">
               <Col>
                 <h6>Top 5 stations with journeys that started at this staion</h6>
                 {top5Departure ?
