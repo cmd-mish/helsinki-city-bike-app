@@ -1,7 +1,7 @@
 const { DB_URI, PATH_TO_STATIONS, PATHS_TO_JOURNEYS, SPLIT_BUFFER_AT } = require('./config')
 const mongoose = require('mongoose')
 const csv = require('csvtojson')
-const cliProgress = require('cli-progress');
+const cliProgress = require('cli-progress')
 const Station = require('./src/models/station')
 const Journey = require('./src/models/journey')
 
@@ -101,7 +101,7 @@ const init = async () => {
   }
 
   let index = 0
-  for (path of PATHS_TO_JOURNEYS) {
+  for (const path of PATHS_TO_JOURNEYS) {
     const newJSON = await convertToJson(path, journeyParams)
     index += 1
     console.log(`begining to export to database file ${index} or ${PATHS_TO_JOURNEYS.length}`)
