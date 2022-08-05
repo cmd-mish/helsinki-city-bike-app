@@ -108,7 +108,7 @@ const Station = () => {
             <Row className="justify-content-md-center pt-3">
               <Col>
                 <h6>Top 5 stations with journeys that started at this staion</h6>
-                {top5Departure ?
+                {top5Departure && top5Departure.length > 0 ?
                   <Table bordered size="sm">
                     <thead>
                       <tr>
@@ -129,11 +129,11 @@ const Station = () => {
                       })}
                     </thead>
                   </Table>
-                  : 'Couldn\'t load top 5 departure stations'}
+                  : 'No stations found'}
               </Col>
               <Col>
                 <h6>Top 5 stations with journeys that ended at this staion</h6>
-                {top5Return ?
+                {top5Return && top5Return.length > 0 ?
                   <Table bordered size="sm">
                     <thead>
                       <tr>
@@ -154,7 +154,7 @@ const Station = () => {
                       })}
                     </thead>
                   </Table>
-                  : 'Couldn\'t load top 5 return stations'}
+                  : 'No stations found'}
               </Col>
             </Row>
           </Container>
