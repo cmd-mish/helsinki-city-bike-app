@@ -19,7 +19,7 @@ const Stations = () => {
     <div>
       <h2>Stations</h2>
       <div>
-        filter stations by name
+        filter stations by name&nbsp;
         <input type='text' onChange={(event) => setSearch(event.target.value)} />
       </div>
       <div className='mt-3'>

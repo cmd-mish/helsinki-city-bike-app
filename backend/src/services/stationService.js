@@ -8,8 +8,11 @@ stationService.get('/', async (req, res) => {
 })
 
 stationService.get('/:id', async (req, res) => {
+  const requestId = Number(req.params.id)
+  if (isNaN(requestId)) return res.status(400).json({ error: 'invalid parameter' })
+
   try {
-    const station = await Station.findOne({ ID: req.params.id })
+    const station = await Station.findOne({ ID: requestId })
     let startJourneyCount, endJourneyCount, avgStart, avgEnd
     let errorMessage
 
@@ -45,6 +48,52 @@ stationService.get('/:id', async (req, res) => {
       return res.json({ ...station._doc, startJourneyCount, endJourneyCount, avgStart, avgEnd, errorMessage })
     }
     return res.status(404).json({ error: 'station not found' })
+  } catch (e) {
+    return res.status(400).json({ error: e.message })
+  }
+})
+
+stationService.get('/top5/departure/:id', async (req, res) => {
+  const requestId = Number(req.params.id)
+  if (isNaN(requestId)) return res.status(400).json({ error: 'invalid parameter' })
+
+  const station = await Station.findOne({ ID: requestId })
+  if (!station) {
+    return res.status(404).json({ error: 'station not found' })
+  }
+
+  try {
+    const journeys = await Journey.aggregate([
+      { $match: { departure_station_id: requestId } },
+      { $group: { _id: '$return_station_id', count: { $sum: 1 }, return_station_name: { $first: '$return_station_name' } } },
+      { $sort: { count: -1 } },
+      { $limit: 5 }
+    ])
+
+    return res.json(journeys)
+  } catch (e) {
+    return res.status(400).json({ error: e.message })
+  }
+})
+
+stationService.get('/top5/return/:id', async (req, res) => {
+  const requestId = Number(req.params.id)
+  if (isNaN(requestId)) return res.status(400).json({ error: 'invalid parameter' })
+
+  const station = await Station.findOne({ ID: requestId })
+  if (!station) {
+    return res.status(404).json({ error: 'station not found' })
+  }
+
+  try {
+    const journeys = await Journey.aggregate([
+      { $match: { return_station_id: requestId } },
+      { $group: { _id: '$departure_station_id', count: { $sum: 1 }, departure_station_name: { $first: '$departure_station_name' } } },
+      { $sort: { count: -1 } },
+      { $limit: 5 }
+    ])
+
+    return res.json(journeys)
   } catch (e) {
     return res.status(400).json({ error: e.message })
   }

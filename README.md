@@ -16,9 +16,11 @@ Built **demo version** of the application is available at **[helsinki-city-bike-
 ## Instructions for project setup
 Instructions on how to set up the backend of the application can be found [here](./backend/README.md)
 
-The frontend of this application is a react app initialised with [Create React App](https://create-react-app.dev/). Instructions on how to build this part of the project can be found [from this file](./frontend/README.md#npm-run-build). However, before running the build, add a new parameter `homepage` to `package.json` file with a value that corresponds to the domain where the app will be published (e.g. `http://localhost/`).
+The frontend of this application is a react app initialised with [Create React App](https://create-react-app.dev/). Instructions on how to build this part of the project can be found [from this file](./frontend/README.md). 
 
-## Tasklist
+First, run `npm install` in order to install the dependencies. Then run `npm run build` in order to produce an optimised production version of the application. However, before running the build, add a new parameter `homepage` to `package.json` file with a value that corresponds to the domain where the app will be published (e.g. `{..., "homepage": "http://localhost/", ...}`).
+
+## Feature list
 ### Data import
 - [x] Data import from .csv files
 - [x] Data validation
@@ -45,7 +47,11 @@ The frontend of this application is a react app initialised with [Create React A
 - [x] *(Optional)* Location on map
 - [x] *(Optional)* Average distance of journeys starting at the station
 - [x] *(Optional)* Average distance of journeys ending at the station
-- [ ] *(Optional)* Top 5 most popular return stations
-- [ ] *(Optional)* Top 5 most popular departure stations
+- [ ] *(Optional)* Top 5 most popular return stations for journeys started at the station
+- [ ] *(Optional)* Top 5 most popular departure stations for journeys started at the station
 - [ ] *(Optional)* Filtering calculations per month
 
+### Additional features
+- Backend and frontend of this application are deployed [on my linux server](https://helsinki-city-bike-app.cmd-mish.dev/)
+- Responsive Bootstrap UI
+- Journey sorting works in both ascending and descending order, also for departure and return dates
